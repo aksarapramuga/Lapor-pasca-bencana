@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Lapor Bencana - Pantau Kerusakan Wilayah</title>
+    <title>Portal Lapor Bencana - KKP & LAUTRA</title>
     
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Tailwind Custom Configuration mematuhi DESIGN-shopify.md -->
+    <!-- Tailwind Custom Configuration -->
     <script>
         tailwind.config = {
             theme: {
@@ -23,13 +23,13 @@
                         'canvas-light': '#ffffff',
                         'aloe-10': '#c1fbd4',
                         'pistachio-10': '#d4f9e0',
+                        'ocean-10': '#e0f2fe', /* Biru Muda Terang */
                         'hairline-light': '#e4e4e7'
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                     },
                     boxShadow: {
-                        // Elevation Level 3: Stacked tiny shadows
                         'soft-halo': '0 2px 10px rgba(0, 0, 0, 0.02), 0 10px 25px rgba(0, 0, 0, 0.04)',
                     }
                 }
@@ -37,7 +37,6 @@
         }
     </script>
     <style>
-        /* Tipografi & Karakter Signature */
         body {
             font-feature-settings: "ss03" 1;
             -webkit-font-smoothing: antialiased;
@@ -45,12 +44,11 @@
         #toast-container {
             transition: opacity 0.3s ease-in-out;
         }
-        /* Styling kustom untuk tombol input file (mengikuti aturan Rounded Pill) */
         input[type="file"]::file-selector-button {
             border: 1px solid #e4e4e7;
             background-color: #f9fafb;
             padding: 0.25rem 0.75rem;
-            border-radius: 9999px; /* Rounded Pill */
+            border-radius: 9999px;
             font-size: 0.75rem;
             font-weight: 500;
             cursor: pointer;
@@ -64,14 +62,28 @@
 </head>
 <body class="bg-canvas-cream text-gray-900 min-h-screen pb-16">
 
-    <!-- Wide-band Section menggunakan pistachio-10 -->
-    <header class="bg-pistachio-10 w-full py-6 px-6 sm:px-12 border-b border-hairline-light mb-8">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>
-                <h1 class="text-2xl font-bold tracking-tight">Sistem Lapor Pasca Bencana</h1>
-                <p class="text-sm text-gray-700 mt-1">Sistem Pemantauan Infrastruktur & Kerusakan Wilayah</p>
+    <!-- Header menggunakan warna Biru Muda (ocean-10) -->
+    <header class="bg-ocean-10 w-full py-6 px-6 sm:px-12 border-b border-hairline-light mb-8">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <!-- Wrapper Logo KKP & LAUTRA -->
+                <div class="flex items-center gap-3 bg-blue-900 px-4 py-2 rounded-2xl shadow-sm border border-blue-800">
+                    <!-- Logo KKP di-zoom dengan wrapper overflow-hidden untuk memotong ruang putih berlebih -->
+                    <div class="h-12 w-12 sm:h-14 sm:w-14 bg-white rounded-lg overflow-hidden flex items-center justify-center shrink-0">
+                        <img src="https://drive.google.com/thumbnail?id=1vSy1-pCfjfPd0_XUJjnu7z2L6cq-eoG_&sz=w400" alt="Logo KKP" class="h-full w-full object-contain scale-[1.5]" onerror="console.error('Gagal memuat logo KKP.')">
+                    </div>
+                    <div class="w-px h-10 bg-blue-700"></div>
+                    <img src="https://drive.google.com/thumbnail?id=13kZGgHlUJ479xn5znwCcA6BgLqjxl0_d&sz=w400" alt="Logo LAUTRA" class="h-10 sm:h-12 w-auto object-contain" onerror="console.error('Gagal memuat logo LAUTRA.')">
+                </div>
+                
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight text-gray-900">Portal Lapor Bencana</h1>
+                    <p class="text-sm text-blue-800 mt-1">Pemantauan Infrastruktur & Kerusakan Wilayah</p>
+                </div>
             </div>
-            <span class="bg-aloe-10 text-gray-900 text-xs font-semibold px-3 py-1 rounded-full border border-green-200">
+
+            <span class="bg-blue-100 text-blue-900 text-xs font-semibold px-4 py-2 rounded-full border border-blue-200 whitespace-nowrap self-start md:self-auto">
                 Drive Sync Aktif
             </span>
         </div>
@@ -80,7 +92,7 @@
     <main class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- Form Input (Create/Update) -->
+            <!-- Form Input -->
             <section class="lg:col-span-1">
                 <div class="bg-canvas-light shadow-soft-halo rounded-2xl p-6 border border-hairline-light sticky top-6">
                     <h2 id="formTitle" class="text-lg font-semibold mb-5">Tambah Data Wilayah</h2>
@@ -120,7 +132,6 @@
                         </div>
                         
                         <div class="pt-2 flex gap-2">
-                            <!-- Bentuk Tombol WAJIB rounded-full -->
                             <button type="submit" id="btnSubmit" class="flex-1 bg-black text-white text-sm font-medium py-2 px-4 rounded-full hover:bg-gray-800 transition-colors flex justify-center items-center gap-2">
                                 Simpan Data
                             </button>
@@ -132,12 +143,12 @@
                 </div>
             </section>
 
-            <!-- Tabel Data (Read/Delete) -->
+            <!-- Tabel Data -->
             <section class="lg:col-span-2">
                 <div class="bg-canvas-light shadow-soft-halo rounded-2xl p-6 border border-hairline-light">
                     <div class="flex justify-between items-center mb-5">
                         <h2 class="text-lg font-semibold">Tabel Situasi Pasca Bencana</h2>
-                        <button onclick="loadData()" class="bg-aloe-10 text-gray-900 text-sm font-medium py-2 px-5 rounded-full hover:bg-[#aee6c2] transition-colors flex items-center gap-2">
+                        <button onclick="loadData()" class="bg-ocean-10 border border-blue-200 text-blue-900 text-sm font-medium py-2 px-5 rounded-full hover:bg-blue-100 transition-colors flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                             Refresh Data
                         </button>
@@ -178,9 +189,8 @@
 
     <script>
         // ==========================================
-        // KONFIGURASI BACKEND (HARDCODED)
+        // KONFIGURASI BACKEND
         // ==========================================
-        // URL GAS Anda telah disematkan secara langsung
         const APP_CONFIG = {
             API_URL: "https://script.google.com/macros/s/AKfycbwZ6zpq7rpGIjGbfrkmtX9gguftrHKCNkgR5aPq7oSl2V6Utv2wofkfZQ4U6E5_eyP52Q/exec", 
             API_TOKEN: "admin123" 
@@ -189,7 +199,6 @@
 
         let appData = [];
 
-        // Inisialisasi awal saat halaman dimuat
         document.addEventListener("DOMContentLoaded", () => {
             if (APP_CONFIG.API_URL && !APP_CONFIG.API_URL.includes("MASUKKAN_URL")) {
                 loadData();
@@ -198,7 +207,6 @@
             }
         });
 
-        // Fungsi menampilkan notifikasi
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.getElementById('toast');
@@ -213,7 +221,6 @@
             }, 3000);
         }
 
-        // Fungsi fetch komunikasi ke GAS
         async function fetchGAS(action, payloadData = {}) {
             if (!APP_CONFIG.API_URL || APP_CONFIG.API_URL.includes("MASUKKAN_URL")) {
                 showToast("Konfigurasi API URL belum diatur pada script!", "error");
@@ -228,7 +235,6 @@
             };
 
             try {
-                // Tipe text/plain digunakan untuk menghindari pemblokiran CORS Preflight
                 const response = await fetch(APP_CONFIG.API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -249,7 +255,6 @@
             }
         }
 
-        // Mengambil dan memuat data
         async function loadData() {
             try {
                 const btn = document.querySelector('button[onclick="loadData()"]');
@@ -266,7 +271,6 @@
             }
         }
 
-        // Render tabel data
         function renderTable() {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
@@ -304,7 +308,6 @@
             });
         }
 
-        // Mengirim data (Submit)
         async function handleFormSubmit(e) {
             e.preventDefault();
             const id = document.getElementById('editId').value;
@@ -321,9 +324,7 @@
                 btnSubmit.disabled = true;
                 btnSubmit.innerHTML = '<span class="animate-pulse">Mengunggah Data...</span>';
 
-                // Proses konversi file ke Base64 (jika ada file yang dipilih)
                 if (file) {
-                    // Validasi ukuran max 5MB
                     if (file.size > 5 * 1024 * 1024) {
                         throw new Error("Ukuran file maksimal adalah 5MB");
                     }
@@ -365,7 +366,6 @@
             }
         }
 
-        // Hapus Data
         async function deleteData(id) {
             if (!confirm('Apakah Anda yakin ingin menghapus data wilayah ini? (Dokumentasi file di Drive tidak akan ikut terhapus)')) return;
             try {
@@ -375,7 +375,6 @@
             } catch (err) {}
         }
 
-        // Switch ke mode edit
         function editMode(id) {
             const item = appData.find(x => x.id === id);
             if (!item) return;
@@ -387,7 +386,7 @@
             document.getElementById('status').value = item.status;
             document.getElementById('dampak').value = item.dampak;
             document.getElementById('existingDokumentasi').value = item.dokumentasi || "";
-            document.getElementById('fileUpload').value = ""; // Reset input file
+            document.getElementById('fileUpload').value = "";
             
             document.getElementById('btnSubmit').innerText = "Update Data";
             document.getElementById('btnCancel').classList.remove('hidden');
@@ -395,7 +394,6 @@
             document.getElementById('dataForm').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Reset form input
         function resetForm() {
             document.getElementById('dataForm').reset();
             document.getElementById('editId').value = '';
@@ -407,5 +405,7 @@
     </script>
 </body>
 </html>
+
+
 
 
